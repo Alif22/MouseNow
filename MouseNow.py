@@ -21,11 +21,14 @@ class appThread(QThread):
 
     def run(self):
         while True:
-            x,y = pyautogui.position()
-            rgb = pyautogui.screenshot().getpixel((x,y))
-            self.x_changed.emit(x)
-            self.y_changed.emit(y)
-            self.rgb_changed.emit(rgb)
+            try:
+                x,y = pyautogui.position()
+                rgb = pyautogui.screenshot().getpixel((x,y))
+                self.x_changed.emit(x)
+                self.y_changed.emit(y)
+                self.rgb_changed.emit(rgb)
+            except IndexError:
+                print("Out of main monitor")
 
 
 class Ui_Dialog(QtWidgets.QDialog):
