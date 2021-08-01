@@ -10,6 +10,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QThread,pyqtSignal
 import sys
 import pyautogui
+import pyperclip
+import keyboard
 
 class appThread(QThread):
     """
@@ -21,12 +23,18 @@ class appThread(QThread):
 
     def run(self):
         while True:
+            rgbStr = ""
             try:
                 x,y = pyautogui.position()
                 rgb = pyautogui.screenshot().getpixel((x,y))
                 self.x_changed.emit(x)
                 self.y_changed.emit(y)
                 self.rgb_changed.emit(rgb)
+                if keyboard.is_pressed(' '):
+                    for item in rgb:
+                        rgbStr = rgbStr + str(item) + ','
+                    pyperclip.copy("(" + str(x) + "," + str(y) + ")" + " rgb(" + rgbStr[:-1]+ ")")
+                    print("Value copied to clipboard")
             except IndexError:
                 print("Out of main monitor")
 
