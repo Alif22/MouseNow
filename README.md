@@ -13,4 +13,4 @@ The .exe file is inside the "dist/MouseNow".
 python: 3.7.6\
 keyboard: 0.13.4\
 PyAutoGUI: 0.9.48\
-pyperclip: 1.7.0\
+pyperclip: 1.7.0
